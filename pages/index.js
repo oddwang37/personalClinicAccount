@@ -14,7 +14,6 @@ const Profile = () => {
       const result = fetch('https://62b1b2cac7e53744afbf0959.mockapi.io/appointments')
       .then((res) => res.json())
       .then(data => {
-        console.log(data); 
         setCards(data)
       });
   }, [])
@@ -26,7 +25,7 @@ const Profile = () => {
       </Head>
       <Wrapper>
         <Navigation />
-        <Panel>
+        <Main>
           <Header>Мой профиль</Header>
           <Container>
             <Title>Записи на прием</Title>
@@ -46,7 +45,7 @@ const Profile = () => {
             <Title>Электронная карта</Title>
             <ElectronicCardSections />
           </Container>
-        </Panel>
+        </Main>
       </Wrapper>
     </div>
   );
@@ -56,7 +55,7 @@ export default Profile;
 
 const Root = styled.div``;
 
-const Panel = styled.div`
+const Main = styled.main`
   width: 85%;
 `
 

@@ -29,7 +29,6 @@ const Root = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
 `
 
 const Title = styled.div`

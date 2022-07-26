@@ -10,15 +10,20 @@ import {Navigation, Header, AppointCard, CustomCalendar} from '../components';
 
 const Appointments = ({data}) => {
 
-  const [ date, onDateChange ] = useState(new Date());
+  const now = new Date();
+  const [ date, onDateChange ] = useState(null);
   const [ filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    const calendarDay = moment(date).format('L');
-    const filteredData = data.filter(item => {
-     return calendarDay == moment(item.date).format('L')
-    });
-    setFilteredData(filteredData);
+    if (date !== null) {
+      const calendarDay = moment(date).format('L');
+      const filteredData = data.filter(item => {
+       return calendarDay == moment(item.date).format('L')
+      });
+      setFilteredData(filteredData);
+    } else {
+      setFilteredData(data);
+    }
   }, [data, date])
 
   return (
@@ -39,9 +44,10 @@ const Appointments = ({data}) => {
             </BackLink>
             <FlexWrap70px>
               <div>
-                <ShowAll>Показать все записи</ShowAll>
+                <ShowAll onClick={() => onDateChange(null)}>Показать все записи</ShowAll>
                 <AppointmentsContainer>
-                   {filteredData.length === 0
+                   {
+                    filteredData.length === 0
                     ? <Placeholder>Нет записей в этот день</Placeholder>
                     :
                     <>
@@ -106,6 +112,7 @@ const ShowAll = styled.div`
   text-decoration: underline;
   margin-bottom: 15px;
   text-align: right;
+  cursor: pointer;
 `
 const AppointmentsContainer = styled.div`
   display: flex;

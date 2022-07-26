@@ -5,14 +5,11 @@ import styled from 'styled-components';
 const DoctorInfo = ({ firstName, lastName, avatar, speciality }) => {
   return (
     <Root>
-      <Photo
-        src={avatar}
-        alt="avatar"
-        width={60}
-        height={60}
-      />
+      <Photo src={avatar} alt="avatar" width={60} height={60} />
       <div>
-        <Name>{firstName}, {lastName}</Name>
+        <Name>
+          {firstName}, {lastName}
+        </Name>
         <Speciality>{speciality}</Speciality>
       </div>
     </Root>
@@ -26,8 +23,7 @@ const Root = styled.div`
   gap: 10px;
   align-items: center;
 `;
-const Name = styled.div`
-`;
+const Name = styled.div``;
 const Speciality = styled.div`
   color: rgba(0, 0, 0, 0.5);
 `;

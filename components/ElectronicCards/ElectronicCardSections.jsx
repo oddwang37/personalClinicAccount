@@ -1,9 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styled from 'styled-components';
 
-import ElectronicCardSection from './ElectronicCardSection' 
-import { Add, Analysis, History, Info } from '../icons/card'
+import ElectronicCardSection from './ElectronicCardSection';
+import { Add, Analysis, History, Info } from '../icons/card';
 
 const ElectonicCardSections = () => {
   return (
@@ -25,10 +23,10 @@ const ElectonicCardSections = () => {
         Вся информация о полученных услугах за все время хранится здесь
       </ElectronicCardSection>
     </Root>
-  )
-}
+  );
+};
 
-export default ElectonicCardSections
+export default ElectonicCardSections;
 
 const Root = styled.div`
   display: grid;
@@ -36,12 +34,12 @@ const Root = styled.div`
   grid-template-rows: 185px 185px;
   gap: 16px;
   margin-top: 15px;
-`
+`;
 
 const List = styled.ul`
   list-style-type: none;
   padding-left: 15px;
-`
+`;
 
 const ListItem = styled.li`
   margin-top: 7px;
@@ -53,4 +51,4 @@ const ListItem = styled.li`
     border-radius: 100%;
     background-color: #50caff;
   }
-`
+`;

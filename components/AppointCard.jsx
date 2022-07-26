@@ -6,12 +6,11 @@ import 'moment/locale/ru';
 import Button from './UI/Button';
 import DoctorInfo from './DoctorInfo';
 
-const AppointmentCard = ({data}) => {
-
-  const {date, clinic, clinicAddress, firstName, lastName, avatar, speciality} = data;
+const AppointmentCard = ({ data }) => {
+  const { date, clinic, clinicAddress, firstName, lastName, avatar, speciality } = data;
 
   const momentDate = moment(date);
-  momentDate.locale('ru')
+  momentDate.locale('ru');
   const formattedDate = momentDate.calendar();
   return (
     <Root>
@@ -20,7 +19,11 @@ const AppointmentCard = ({data}) => {
         <Clinic>
           {clinic} {','} {clinicAddress}
         </Clinic>
-        <DoctorInfo firstName={firstName} lastName={lastName} avatar={avatar} speciality={speciality}></DoctorInfo>
+        <DoctorInfo
+          firstName={firstName}
+          lastName={lastName}
+          avatar={avatar}
+          speciality={speciality}></DoctorInfo>
       </div>
       <Button>Отменить</Button>
     </Root>

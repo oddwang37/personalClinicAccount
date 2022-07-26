@@ -5,22 +5,32 @@ import { createGlobalStyle } from 'styled-components';
 import CalendarTile from './CalendarTile';
 import moment from 'moment';
 
-const CustomCalendar = ({value, onChange, appointmentDays}) => {
-
+const CustomCalendar = ({ value, onChange, appointmentDays }) => {
   const getAppointmentsQuantity = (date) => {
     if (appointmentDays.hasOwnProperty(moment(date.date).format('L'))) {
       return appointmentDays[moment(date.date).format('L')];
-    } else return null
-  }
+    } else return null;
+  };
   return (
     <div>
       <GlobalStyle />
-      <Calendar onChange={onChange} value={value} calendarType="ISO 8601" tileContent={(date, view) => <CalendarTile date={() => moment(date.date).format('L')} view={view} appointmentsQuantity={getAppointmentsQuantity(date)} />}/>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        calendarType="ISO 8601"
+        tileContent={(date, view) => (
+          <CalendarTile
+            date={() => moment(date.date).format('L')}
+            view={view}
+            appointmentsQuantity={getAppointmentsQuantity(date)}
+          />
+        )}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default CustomCalendar
+export default CustomCalendar;
 
 const GlobalStyle = createGlobalStyle`
   .react-calendar { 
@@ -148,4 +158,4 @@ const GlobalStyle = createGlobalStyle`
     background-color: #EBE7FF;
     color: rgba(0, 0, 0, 0.5);
   }
-`
+`;

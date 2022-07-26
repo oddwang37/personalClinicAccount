@@ -13,6 +13,7 @@ const Appointments = ({data}) => {
   const now = new Date();
   const [ date, onDateChange ] = useState(null);
   const [ filteredData, setFilteredData] = useState([]);
+  const [ appointmentDays, setAppointmentDays ] = useState([]);
 
   useEffect(() => {
     if (date !== null) {
@@ -25,6 +26,20 @@ const Appointments = ({data}) => {
       setFilteredData(data);
     }
   }, [data, date])
+
+  // Create object with day in property name and quantity of appointments in property value
+  useEffect(() => {
+  const daysWithAppointments = {};
+   data.map((item) => {
+    const formattedDay = moment(item.date).format('L');
+    if (daysWithAppointments.hasOwnProperty(moment(item.date).format('L'))) {
+      daysWithAppointments[moment(item.date).format('L')]+=1;
+    } else {
+      daysWithAppointments[moment(item.date).format('L')] = 1;
+    }
+  });
+   setAppointmentDays(daysWithAppointments);
+  }, [])
 
   return (
     <div>
@@ -60,7 +75,7 @@ const Appointments = ({data}) => {
                   }
                 </AppointmentsContainer>
               </div>
-              <CustomCalendar value={date} onChange={onDateChange}/>
+              <CustomCalendar value={date} onChange={onDateChange} appointmentDays={appointmentDays}/>
             </FlexWrap70px>
            </Container>
         </Main>

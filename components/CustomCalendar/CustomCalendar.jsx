@@ -2,13 +2,20 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import { createGlobalStyle } from 'styled-components';
+import CalendarTile from './CalendarTile';
+import moment from 'moment';
 
-const CustomCalendar = ({value, onChange}) => {
+const CustomCalendar = ({value, onChange, appointmentDays}) => {
 
+  const getAppointmentsQuantity = (date) => {
+    if (appointmentDays.hasOwnProperty(moment(date.date).format('L'))) {
+      return appointmentDays[moment(date.date).format('L')];
+    } else return null
+  }
   return (
     <div>
       <GlobalStyle />
-      <Calendar onChange={onChange} value={value} calendarType="ISO 8601"/>
+      <Calendar onChange={onChange} value={value} calendarType="ISO 8601" tileContent={(date, view) => <CalendarTile date={() => moment(date.date).format('L')} view={view} appointmentsQuantity={getAppointmentsQuantity(date)} />}/>
     </div>
   )
 }

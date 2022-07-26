@@ -36,6 +36,7 @@ const Root = styled.div`
   background-color: #003B72;
   color: #fff;
   width: 220px;
+  min-height: 100vh;
 `
 const Logotype = styled.div`
   height: 60px;

@@ -3,17 +3,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 import {Navigation, Header, AppointCard, CustomCalendar} from '../components';
 
 const Appointments = ({data}) => {
 
-  const getData = async () => {
-    const { data } = await axios.get('https://62b1b2cac7e53744afbf0959.mockapi.io/appointments');
-    console.log(data);
-    return data;
-  }
+  const [ date, onDateChange ] = useState(new Date());
+  const [ filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const calendarDay = moment(date).format('L');
+    const filteredData = data.filter(item => {
+     return calendarDay == moment(item.date).format('L')
+    });
+    setFilteredData(filteredData);
+  }, [data, date])
 
   return (
     <div>
@@ -35,14 +41,20 @@ const Appointments = ({data}) => {
               <div>
                 <ShowAll>Показать все записи</ShowAll>
                 <AppointmentsContainer>
-                   {
-                    data.map((item) => 
-                      <AppointCard data={item} key={item.id}/>
-                    )
+                   {filteredData.length === 0
+                    ? <Placeholder>Нет записей в этот день</Placeholder>
+                    :
+                    <>
+                        {
+                          filteredData.map((item) => 
+                          <AppointCard data={item} key={item.id}/>
+                          )
+                        }
+                      </> 
                   }
                 </AppointmentsContainer>
               </div>
-              <CustomCalendar />
+              <CustomCalendar value={date} onChange={onDateChange}/>
             </FlexWrap70px>
            </Container>
         </Main>
@@ -52,9 +64,7 @@ const Appointments = ({data}) => {
 }
 
 export async function getStaticProps() {
-  console.log('Эта функция вызвалась');
   const { data } = await axios.get('https://62b1b2cac7e53744afbf0959.mockapi.io/appointments');
-  console.log(data);
   return {
     props: {
       data
@@ -101,4 +111,10 @@ const AppointmentsContainer = styled.div`
   display: flex;
   gap: 15px;
   flex-direction: column;
+`
+const Placeholder = styled.div`
+  width: 450px;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: right;
 `

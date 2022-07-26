@@ -21,7 +21,7 @@ const Profile = () => {
   return (
     <div>
       <Head>
-        <title>Записи на приём</title>
+        <title>Мой профиль</title>
       </Head>
       <Wrapper>
         <Navigation />
